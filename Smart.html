@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Volume Estimation</title>
+    <style>
+        body {
+            background: url('https://cdn.vox-cdn.com/thumbor/voARJfEkvT6E1MSzWB3EPn86TDM=/0x78:3000x1766/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/44219366/72499026.0.0.jpg');
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .button-container {
+            grid-column: span 2;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Traffic Volume Estimation</h1>
+        <form action="{{ url_for('predict') }}" method="post">
+            <div>
+                <label for="holiday">Holiday:</label>
+                <select name="holiday" id="holiday" required>
+                    <option value=0>None</option>
+                    <option value=1>Columbus Day</option>
+                    <option value=2>Veterans Day</option>
+                    <option value=3>Thanksgiving Day</option>
+                    <option value=4>Christmas Day</option>
+                    <option value=5>New Years Day</option>
+                    <option value=6>Washingtons Birthday</option>
+                    <option value=7>Memorial Day</option>
+                    <option value=8>Independence Day</option>
+                    <option value=9>State Fair</option>
+                    <option value=10>Labor Day</option>
+                    <option value=11>Martin Luther King Jr Day</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Temp:</label>
+                <input type="number" name="temp" placeholder="Temperature" required />
+            </div>
+
+            <div>
+                <label>Rain:</label>
+                <input type="number" name="rain" placeholder="Rain" min="0" max="1" required />
+            </div>
+
+            <div>
+                <label>Snow:</label>
+                <input type="number" name="snow" placeholder="Snow" min="0" max="1" required />
+            </div>
+
+            <div>
+                <label for="weather">Weather:</label>
+                <select name="weather" id="weather" required>
+                    <option value=1>Clouds</option>
+                    <option value=2>Drizzle</option>
+                    <option value=3>Rain</option>
+                    <option value=4>Haze</option>
+                    <option value=5>Mist</option>
+                    <option value=6>Fog</option>
+                    <option value=7>Thunderstorm</option>
+                    <option value=8>Snow</option>
+                    <option value=9>Smoke</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Year:</label>
+                <input type="number" name="year" min="2012" max="2022" placeholder="Year" required />
+            </div>
+
+            <div>
+                <label>Month:</label>
+                <input type="number" name="month" min="1" max="12" placeholder="Month" required />
+            </div>
+
+            <div>
+                <label>Day:</label>
+                <input type="number" name="day" min="1" max="31" placeholder="Day" required />
+            </div>
+
+            <div>
+                <label>Hours:</label>
+                <input type="number" name="hours" min="0" max="23" placeholder="Hours" required />
+            </div>
+
+            <div>
+                <label>Minutes:</label>
+                <input type="number" name="minutes" min="0" max="59" placeholder="Minutes" required />
+            </div>
+
+            <div>
+                <label>Seconds:</label>
+                <input type="number" name="seconds" min="0" max="59" placeholder="Seconds" required />
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+
+        <br><br>
+        <h2>{{ prediction_text }}</h2>
+    </div>
+</body>
+</html>
